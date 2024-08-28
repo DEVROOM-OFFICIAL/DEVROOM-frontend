@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "serverless && next build && next export"
+    "deploy": "s3-preprocessing && next build && next export"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.48.0",
