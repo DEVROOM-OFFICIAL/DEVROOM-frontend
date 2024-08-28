@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import TopNavBar from "@/components/onboarding/TopNavBar";
-import LogoBig from "/public/icons/LogoBig.png";
+import LogoBig from "/public/icons/LogoBig_2x.png";
 import Image from "next/image";
 import Link from "next/link";
 

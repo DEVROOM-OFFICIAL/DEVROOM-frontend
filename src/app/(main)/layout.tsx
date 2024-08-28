@@ -2,29 +2,20 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import styles from "./layout.module.css";
-import { useAuthStore } from "@/store/authStore";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import LeftArrowIcon from "/public/icons/LeftArrow.svg";
 import HamburgerIcon from "/public/icons/Hamburger.svg";
+import { useUserStore } from "@/store/userStore";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const user = useAuthStore((state) => state.user);
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const { name, role, studentId } = useUserStore((state) => state);
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (!isLoggedIn && !isLoading) {
-      redirect("/onboarding");
-    }
-  }, [isLoggedIn, isLoading]);
-
   const navigation = usePathname();
 
   const isActive = (path: string) => {
@@ -74,10 +65,10 @@ export default function Layout({ children }: LayoutProps) {
           />
           <div>
             <div className={styles.userInfo}>
-              <div>{user?.name}</div>
-              <div>{user?.isStudent ? "- 학생" : " - 교수"}</div>
+              <div>{name}</div>
+              <div>{role === "Student" ? "- 학생" : " - 교수"}</div>
             </div>
-            <div className={styles.studentsId}>{user?.studentId}</div>
+            <div className={styles.studentsId}>{studentId}</div>
           </div>
         </div>
         <div className={styles.menu}>
@@ -85,15 +76,15 @@ export default function Layout({ children }: LayoutProps) {
             <Image
               src="/icons/Space.svg"
               alt="container"
-              width={35}
-              height={35}
+              width={25}
+              height={25}
             />
             <div className={styles.menuText}>스페이스</div>
             <Image
               src="/icons/Down.svg"
               alt="container"
-              width={15}
-              height={15}
+              width={12}
+              height={12}
               className={styles.down}
             />
           </div>
@@ -124,7 +115,7 @@ export default function Layout({ children }: LayoutProps) {
               </div>
             </Link>
           </div>
-          <Link href="/notice/all">
+          {/* <Link href="/notice/all">
             <div
               className={`${styles.menuItem} ${
                 isActive("/notice/all") || isActive("/notice/specific")
@@ -133,8 +124,8 @@ export default function Layout({ children }: LayoutProps) {
               <Image
                 src="/icons/Notice.svg"
                 alt="notice"
-                width={35}
-                height={35}
+                width={25}
+                height={25}
               />
               <div>공지</div>
             </div>
@@ -144,15 +135,15 @@ export default function Layout({ children }: LayoutProps) {
               <Image
                 src="/icons/Message.svg"
                 alt="community"
-                width={35}
-                height={35}
+                width={25}
+                height={25}
               />
               <div>메세지</div>
             </div>
-          </Link>
+          </Link> */}
           <Link href="/help">
             <div className={`${styles.menuItem} ${isActive("/help")}`}>
-              <Image src="/icons/Help.svg" alt="help" width={35} height={35} />
+              <Image src="/icons/Help.svg" alt="help" width={25} height={25} />
               <div>도움말</div>
             </div>
           </Link>
@@ -161,8 +152,8 @@ export default function Layout({ children }: LayoutProps) {
               <Image
                 src="/icons/Mypage.svg"
                 alt="mypage"
-                width={35}
-                height={35}
+                width={22}
+                height={22}
               />
               <div>마이페이지</div>
             </div>
@@ -183,8 +174,8 @@ export default function Layout({ children }: LayoutProps) {
               className={styles.iconButton}
             />
           )}
-          <div className={styles.studentId}>{user?.name}</div>
-          <div className={styles.studentId}> / {user?.studentId}</div>
+          <div className={styles.studentId}>{name}</div>
+          <div className={styles.studentId}> / {studentId}</div>
         </div>
         <div
           className={`${styles.content} ${

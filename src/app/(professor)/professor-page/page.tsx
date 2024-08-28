@@ -1,13 +1,14 @@
 "use client";
 
-import { useAuthStore } from "@/store/authStore";
 import styles from "./page.module.css";
 import ProfilePic from "/public/icons/MyProfile.svg";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/userStore";
 
 const MyPage = () => {
-  const user = useAuthStore((state) => state.user);
-  const logout = useAuthStore((state) => state.logout);
+  const { name, role, studentId, email, logout } = useUserStore(
+    (state) => state
+  );
   const router = useRouter();
 
   const handleLogout = () => {
@@ -24,29 +25,31 @@ const MyPage = () => {
     <div className={styles.container}>
       <div className={styles.profileSection}>
         <ProfilePic />
-        <h1 className={styles.userName}>{user?.name}</h1>
-        <p className={styles.userRole}>{user?.isStudent ? "학생" : "교수"}</p>
-        <p className={styles.userId}>{user?.studentId}</p>
+        <h1 className={styles.userName}>{name}</h1>
+        <p className={styles.userRole}>
+          {role === "Student" ? "학생" : "교수"}
+        </p>
+        <p className={styles.userId}>{studentId}</p>
       </div>
       <div className={styles.infoSection}>
         <h2 className={styles.sectionTitle}>내 정보</h2>
         <div className={styles.infoItem}>
           <span className={styles.infoLabel}>이름:</span>
-          <span className={styles.infoValue}>{user?.name}</span>
+          <span className={styles.infoValue}>{name}</span>
         </div>
         <div className={styles.infoItem}>
           <span className={styles.infoLabel}>역할:</span>
           <span className={styles.infoValue}>
-            {user?.isStudent ? "학생" : "교수"}
+            {role === "Student" ? "학생" : "교수"}
           </span>
         </div>
         <div className={styles.infoItem}>
           <span className={styles.infoLabel}>학번/교번:</span>
-          <span className={styles.infoValue}>{user?.studentId}</span>
+          <span className={styles.infoValue}>{studentId}</span>
         </div>
         <div className={styles.infoItem}>
           <span className={styles.infoLabel}>이메일:</span>
-          <span className={styles.infoValue}>{user?.email}</span>
+          <span className={styles.infoValue}>{email}</span>
         </div>
       </div>
 

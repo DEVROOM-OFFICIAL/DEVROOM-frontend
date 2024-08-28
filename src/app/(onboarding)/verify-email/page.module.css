@@ -1,0 +1,142 @@
+.container {
+  background-color: var(--black-color);
+  display: flex;
+  flex-direction: row;
+  min-height: 100dvh;
+}
+
+.left {
+  flex: 1;
+  background-color: var(--gray-color);
+}
+.background {
+  background-image: url("/icons/Background.svg");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right {
+  width: 600px;
+  background-color: var(--gray-color);
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightContainer {
+  width: 430px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.grayText {
+  color: var(--lightgray-color);
+  font-size: 18px;
+  padding-top: 15px;
+  font-weight: 700;
+}
+
+.grayText2 {
+  color: var(--lightgray-color);
+  font-size: 16px;
+  padding-top: 15px;
+}
+
+.inputContainer {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 50px;
+  padding: 15px 0 15px 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid var(--lightgray-color);
+}
+
+.inputBox {
+  display: flex;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  right: -0.5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input:focus-visible {
+  outline: var(--orange-color);
+  outline-width: 10px;
+}
+
+.createAccountButton {
+  width: 100%;
+  height: 50px;
+  margin-top: 60px;
+  background-color: var(--orange-color);
+  color: var(--white-color);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.linkContainer {
+  padding-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.textAlready {
+  color: var(--lightgray-color);
+  font-size: 16px;
+}
+
+.loginLink {
+  color: var(--orange-color);
+}
+
+@media (max-width: 768px) {
+  .right {
+    border-radius: 0px;
+  }
+  .rightContainer {
+    width: 100%;
+  }
+  .left {
+    display: none;
+  }
+}

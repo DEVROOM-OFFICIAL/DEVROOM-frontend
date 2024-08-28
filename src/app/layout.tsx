@@ -1,37 +1,22 @@
+import React from "react";
+import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import Providers from "@/utils/provider";
 
 export const metadata: Metadata = {
   title: {
     default: "DevRoom",
     template: "DevRoom| %s",
   },
-  icons: [
-    { url: "/favicon.ico", sizes: "any" },
-    {
-      url: "/favicon.png",
-      sizes: "32x32",
-      type: "image/png",
-    },
-  ],
+  icons: [{ url: "/favicon.ico", sizes: "any" }],
 };
 
-const pretendardBold = localFont({
-  src: "./fonts/Pretendard-Bold.ttf",
-  display: "swap",
-  weight: "700",
-});
-
-const pretendardMedium = localFont({
-  src: "./fonts/Pretendard-Medium.ttf",
-  display: "swap",
-  weight: "300",
-});
 const pretendard = localFont({
-  src: "./fonts/Pretendard-Regular.ttf",
+  src: "../fonts/PretendardVariable.woff2",
   display: "swap",
-  weight: "300",
+  weight: "45 920",
+  variable: "--font-pretendard",
 });
 
 export default function RootLayout({
@@ -41,10 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body
-        className={`${pretendardBold.className} ${pretendardMedium.className} ${pretendard.className}`}
-      >
-        {children}
+      <body className={`${pretendard.variable} font-pretendard`}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

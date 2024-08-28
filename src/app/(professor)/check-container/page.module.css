@@ -4,7 +4,7 @@
 
 .headerTitle {
   font-size: 24px;
-  font-family: "Pretendard-bold";
+  font-weight: 700; /* Bold style 적용 */
   padding: 10px 0;
 }
 

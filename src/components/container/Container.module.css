@@ -9,6 +9,7 @@
   transform: scale(1.03);
   box-shadow: 0 0 10px 0 rgb(240, 162, 54);
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .topContainer {
@@ -30,18 +31,19 @@
   color: var(--black-color);
 }
 .topDescription {
+  font-size: larger;
   color: var(--green-color);
   display: flex;
   flex-direction: row;
   gap: 5px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
 }
 .bottomDescription {
-  padding-top: 20px;
+  padding-top: 30px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
 }
 .icon {
   fill: var(--gray-color);

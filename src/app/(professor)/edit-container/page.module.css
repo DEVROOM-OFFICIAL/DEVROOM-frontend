@@ -19,14 +19,14 @@
 
 .logoText {
   font-size: 30px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
   padding: 50px 0 15px;
 }
 
 .grayText {
   color: var(--gray-color);
   font-size: 16px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
 }
 
 .rightContainer {
@@ -37,7 +37,7 @@
 
 .title {
   font-size: 24px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
   padding: 10px 0;
   margin-bottom: 40px;
 }
@@ -56,7 +56,7 @@
 .formGroup label {
   margin-bottom: 5px;
   font-size: 16px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
   color: var(--gray-color);
 }
 
@@ -74,7 +74,6 @@
   justify-content: space-between;
 }
 
-.saveButton,
 .deleteButton {
   margin-top: 30px;
   padding: 10px 15px;
@@ -86,12 +85,8 @@
   flex: 1;
 }
 
-.saveButton {
-  background-color: var(--orange-color);
-}
-
 .deleteButton {
-  background-color: var(--gray-color);
+  background-color: var(--orange-color);
 }
 
 @media (max-width: 768px) {

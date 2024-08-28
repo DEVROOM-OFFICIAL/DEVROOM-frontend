@@ -2,31 +2,57 @@
 import { useState } from "react";
 import styles from "./page.module.css";
 import Logo2Icon from "/public/icons/Logo2.svg";
-import dummy_edit_data from "@/data/dummy_edit_data.json";
-import WarningModal from "@/components/common/WarningModal";
+import { useDeleteClass, useFetchCheck } from "@/api/hooks/useProfessor";
+import { ContainerCheckSchema, ContainerDeleteSchema } from "@/type/schemas";
+import { IDelete } from "@/type/interfaces";
+import { useUserStore } from "@/store/userStore";
+
+const transformData = (input: ContainerCheckSchema[]): IDelete[] => {
+  if (!input) return [];
+  return input.map((item) => {
+    const output: IDelete = {
+      className: item.labels.class_id,
+      type: item.labels.connection,
+      status: item.status,
+      command:
+        item.labels.connection === "ssh" ? `ssh -p 22 user@${item.ip}` : "",
+    };
+    return output;
+  });
+};
 
 const EditContainerPage = () => {
+  const { studentId } = useUserStore();
   const [classId, setClassId] = useState<string>("");
   const [type, setType] = useState<string>("");
-  const [port, setPort] = useState<string>("");
+  const [containerStatus, setStatus] = useState<string>("");
   const [command, setCommand] = useState<string>("");
-  const [showSaveModal, setShowSaveModal] = useState<boolean>(false);
-  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
-  const mockData = dummy_edit_data;
+  const { data: containerCheckData, isLoading, error } = useFetchCheck();
+  const { mutate: deleteClass, status } = useDeleteClass();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  const classData = transformData(containerCheckData);
 
   const handleClassIdChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = e.target.value;
     setClassId(selectedId);
 
-    const selectedData = mockData.find((data) => data.id === selectedId);
+    const selectedData = classData.find(
+      (data) => data.className === selectedId
+    );
     if (selectedData) {
       setType(selectedData.type);
-      setPort(selectedData.port);
+      setStatus(selectedData.status);
       setCommand(selectedData.command);
     } else {
       setType("");
-      setPort("");
+      setStatus("");
       setCommand("");
     }
   };
@@ -36,15 +62,19 @@ const EditContainerPage = () => {
     const containerData = {
       classId,
       type,
-      port: type === "vscode" ? port : undefined,
+      port: type === "vscode" ? containerStatus : undefined,
       command: type === "ssh" ? command : undefined,
     };
     console.log("Container Data:", containerData);
-    setShowSaveModal(true);
   };
 
   const handleDelete = () => {
-    setShowDeleteModal(true);
+    const deleteData: ContainerDeleteSchema = {
+      className: classId.replace(/^id-/, ""),
+      studentId: "all",
+    };
+    console.log("Delete Data:", deleteData);
+    deleteClass({ professorId: studentId, deleteData: deleteData });
   };
 
   return (
@@ -53,8 +83,10 @@ const EditContainerPage = () => {
       <div className={styles.container}>
         <div className={styles.leftContainer}>
           <Logo2Icon />
-          <div className={styles.logoText}>Edit Container</div>
-          <div className={styles.grayText}>Edit or delete your container</div>
+          <div className={styles.logoText}>Delete Container</div>
+          <div className={styles.grayText}>
+            Choose Class ID to delete your container
+          </div>
         </div>
         <div className={styles.rightContainer}>
           <form className={styles.form} onSubmit={handleSave}>
@@ -67,53 +99,36 @@ const EditContainerPage = () => {
                 required
               >
                 <option value="">Select Class ID</option>
-                {mockData.map((data) => (
-                  <option key={data.id} value={data.id}>
-                    {data.id}
+                {classData.map((data: IDelete, index: number) => (
+                  <option key={index} value={data.className}>
+                    {data.className}
                   </option>
                 ))}
               </select>
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="type">Type</label>
-              <select
+              <input
                 id="type"
                 value={type}
                 onChange={(e) => setType(e.target.value)}
                 required
-                disabled={!classId}
-              >
-                <option value=""></option>
-                <option value="vscode">VSCode</option>
-                <option value="ssh">SSH</option>
-              </select>
+                disabled={true}
+              ></input>
             </div>
+
             <div className={styles.formGroup}>
-              <label htmlFor="command">명령어</label>
-              <input
-                type="text"
-                id="command"
-                value={command}
-                onChange={(e) => setCommand(e.target.value)}
-                required
-                disabled={type !== "ssh"}
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="port">Port 번호</label>
+              <label htmlFor="port">Status</label>
               <input
                 type="text"
                 id="port"
-                value={port}
-                onChange={(e) => setPort(e.target.value)}
+                value={containerStatus}
+                onChange={(e) => setStatus(e.target.value)}
                 required
-                disabled={type !== "vscode"}
+                disabled={true}
               />
             </div>
             <div className={styles.buttonGroup}>
-              <button type="submit" className={styles.saveButton}>
-                수정
-              </button>
               <button
                 type="button"
                 className={styles.deleteButton}
@@ -125,18 +140,6 @@ const EditContainerPage = () => {
           </form>
         </div>
       </div>
-      {showSaveModal && (
-        <WarningModal
-          message={`"${classId}" 컨테이너가 수정되었습니다`}
-          onClose={() => setShowSaveModal(false)}
-        />
-      )}
-      {showDeleteModal && (
-        <WarningModal
-          message={`"${classId}" 컨테이너가 삭제되었습니다`}
-          onClose={() => setShowDeleteModal(false)}
-        />
-      )}
     </>
   );
 };

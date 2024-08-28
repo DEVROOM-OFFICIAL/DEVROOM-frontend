@@ -1,39 +1,48 @@
 "use client";
 import { useState } from "react";
 import styles from "./page.module.css";
-import data from "@/data/dummy_check_data.json";
 import PodTable from "@/components/check/PodTable";
 import GridComponent from "@/components/check/PodGrid";
-
-interface PodData {
-  name: string;
-  ip: string;
-  labels: {
-    app: string;
-    class_id: string;
-    pod_template_hash: string;
-    professor_id: string;
-    student_id: string;
-    vscode: string;
-    ssh: string;
-  };
-  creationTimestamp: string;
-  status: string;
-}
+import { useFetchCheck } from "@/api/hooks/useProfessor";
+import { type ContainerCheckSchema } from "@/type/schemas";
 
 const CheckPage = () => {
   const [filterClassId, setFilterClassId] = useState<string>("");
+  const {
+    data: containerCheckData,
+    isLoading,
+    isError,
+    error,
+  } = useFetchCheck();
+
+  // 로딩 및 에러 처리
+
+  if (!containerCheckData) return;
+
+  if (isLoading) {
+    console.log("Loading...");
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    console.log("Error: ", error.message);
+    return <div>Error: {error.message}</div>;
+  }
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterClassId(e.target.value);
   };
 
-  const filteredData = data.filter((pod: PodData) => {
-    return filterClassId === "" || pod.labels.class_id === filterClassId;
-  });
+  const filteredData = containerCheckData.filter(
+    (pod: ContainerCheckSchema) => {
+      return filterClassId === "" || pod.labels.class_id === filterClassId;
+    }
+  );
 
-  const classIds = Array.from(
-    new Set(data.map((pod: PodData) => pod.labels.class_id))
+  const classIds: string[] = Array.from(
+    new Set(
+      containerCheckData.map((pod: ContainerCheckSchema) => pod.labels.class_id)
+    )
   );
 
   return (
@@ -48,9 +57,9 @@ const CheckPage = () => {
             onChange={handleFilterChange}
           >
             <option value="">전체</option>
-            {classIds.map((classId) => (
-              <option key={classId} value={classId}>
-                {classId}
+            {classIds.map((classId: string, index: number) => (
+              <option key={index} value={classId}>
+                {classId.startsWith("id-") ? classId.substring(3) : classId}
               </option>
             ))}
           </select>

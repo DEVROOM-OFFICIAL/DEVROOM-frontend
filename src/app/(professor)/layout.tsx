@@ -2,28 +2,20 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import styles from "./layout.module.css";
-import { useAuthStore } from "@/store/authStore";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import LeftArrowIcon from "/public/icons/LeftArrow.svg";
 import HamburgerIcon from "/public/icons/Hamburger.svg";
+import { useUserStore } from "@/store/userStore";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const user = useAuthStore((state) => state.user);
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const { name, role, studentId } = useUserStore((state) => state);
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (!isLoggedIn && !isLoading) {
-      redirect("/onboarding");
-    }
-  }, [isLoggedIn, isLoading]);
 
   const navigation = usePathname();
 
@@ -74,10 +66,10 @@ export default function Layout({ children }: LayoutProps) {
           />
           <div>
             <div className={styles.userInfo}>
-              <div>{user?.name}</div>
-              <div>{user?.isStudent ? "- 학생" : " - 교수"}</div>
+              <div>{name}</div>
+              <div>{role === "Student" ? "- 학생" : " - 교수"}</div>
             </div>
-            <div className={styles.studentsId}>{user?.studentId}</div>
+            <div className={styles.studentsId}>{studentId}</div>
           </div>
         </div>
         <div className={styles.menu}>
@@ -111,7 +103,7 @@ export default function Layout({ children }: LayoutProps) {
               <div
                 className={`${styles.menuItem} ${isActive("/edit-container")}`}
               >
-                <div>컨테이너 수정 및 삭제</div>
+                <div>컨테이너 삭제</div>
               </div>
             </Link>
           </div>
@@ -123,7 +115,7 @@ export default function Layout({ children }: LayoutProps) {
               <div>조회</div>
             </div>
           </Link>
-          <div className={styles.menuItem}>
+          {/* <div className={styles.menuItem}>
             <Image
               src="/icons/Notice.svg"
               alt="notice"
@@ -140,7 +132,7 @@ export default function Layout({ children }: LayoutProps) {
               height={35}
             />
             <div className={styles.menuText}>메세지</div>
-          </div>
+          </div> */}
           <Link href="/professor-page">
             <div
               className={`${styles.menuItem} ${isActive("/professor-page")}`}
@@ -170,8 +162,8 @@ export default function Layout({ children }: LayoutProps) {
               className={styles.iconButton}
             />
           )}
-          <div className={styles.studentId}>{user?.name}</div>
-          <div className={styles.studentId}> / {user?.studentId}</div>
+          <div className={styles.studentId}>{name}</div>
+          <div className={styles.studentId}> / {studentId}</div>
         </div>
         <div
           className={`${styles.content} ${

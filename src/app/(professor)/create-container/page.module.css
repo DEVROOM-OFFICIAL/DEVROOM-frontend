@@ -17,13 +17,13 @@
 
 .logoText {
   font-size: 30px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
   padding: 50px 0 15px;
 }
 .grayText {
   color: var(--gray-color);
   font-size: 16px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
 }
 
 .rightContainer {
@@ -34,7 +34,7 @@
 
 .title {
   font-size: 24px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
   padding: 10px 0;
   margin-bottom: 40px;
 }
@@ -53,7 +53,7 @@
 .formGroup label {
   margin-bottom: 5px;
   font-size: 16px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
   color: var(--gray-color);
 }
 
@@ -61,24 +61,62 @@
 .formGroup select {
   padding: 8px;
   font-size: 14px;
-  font-family: "Pretendard-Medium";
+  font-weight: 500;
   border: 1px solid #ccc;
   border-radius: 12px;
-}
-.td {
-  font-family: "Pretendard-Medium";
+  width: 100%;
 }
 
 .submitButton {
   margin-top: 30px;
   padding: 10px 15px;
   font-size: 16px;
-  font-family: "Pretendard-Medium";
+  font-weight: 500;
   color: white;
   background-color: var(--orange-color);
   border: none;
   border-radius: 12px;
   cursor: pointer;
+}
+
+.studentIdRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.addButton,
+.removeButton {
+  padding: 4px 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  background-color: var(--orange-color);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+.firstLine {
+  display: flex;
+  gap: 15px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox input {
+  margin-right: 5px;
 }
 
 @media (max-width: 768px) {

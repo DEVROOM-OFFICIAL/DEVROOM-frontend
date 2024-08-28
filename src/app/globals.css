@@ -1,9 +1,6 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  /* --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace; */
 
   /* 색상 지정 */
   --gray-color: #2d2d2d;
@@ -17,20 +14,6 @@
   --orange50-color: rgba(253, 116, 1, 0.7);
 }
 
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 400;
-  font-style: normal;
-  src: url("/fonts/Pretendard-Medium.ttf") format("ttf");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 700;
-  font-style: normal;
-  src: url("/fonts/Pretendard-Bold.ttf") format("ttf");
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -41,7 +24,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: "Pretendard", sans-serif;
+  font-family: var(--font-pretendard);
   color: var(--white-color);
   background-color: var(--gray-color);
 }

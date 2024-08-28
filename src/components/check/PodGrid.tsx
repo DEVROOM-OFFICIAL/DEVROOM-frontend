@@ -1,30 +1,13 @@
 import React from "react";
 import styles from "./PodGrid.module.css";
 
-interface PodData {
-  name: string;
-  ip: string;
-  labels: {
-    app: string;
-    class_id: string;
-    pod_template_hash: string;
-    professor_id: string;
-    student_id: string;
-    vscode: string;
-    ssh: string;
-  };
-  creationTimestamp: string;
-  status: string;
-}
+import { type IPodTable } from "@/type/interfaces";
+import { type ContainerCheckSchema } from "@/type/schemas";
 
-interface GridComponentProps {
-  filteredData: PodData[];
-}
-
-const GridComponent = ({ filteredData }: GridComponentProps) => {
+const GridComponent = ({ filteredData }: IPodTable) => {
   return (
     <div className={styles.gridContainer}>
-      {filteredData.map((pod: PodData) => (
+      {filteredData.map((pod: ContainerCheckSchema) => (
         <div key={pod.name} className={styles.gridItem}>
           <div>
             <strong>Class ID:</strong> {pod.labels.class_id}
@@ -33,8 +16,12 @@ const GridComponent = ({ filteredData }: GridComponentProps) => {
             <strong>Student ID:</strong> {pod.labels.student_id}
           </div>
           <div>
-            <strong>Type:</strong> {pod.labels.vscode === "yes" ? "vscode" : ""}
-            {pod.labels.ssh === "yes" ? "SSH" : ""}
+            <strong>Type:</strong>{" "}
+            { pod.labels.connection === "vscode" 
+            ? "VSCode" 
+            : pod.labels.connection === "web_ssh" 
+            ? "WebSHH" 
+            : "SSH"}
           </div>
           <div>
             <strong>Timestamp:</strong>{" "}

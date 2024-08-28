@@ -28,13 +28,13 @@
 
 .headerText {
   font-size: 50px;
-  font-family: "Pretendard-bold";
+  font-weight: 700;
   color: var(--lightgray2-color);
 }
 .bodyText {
   margin-top: 100px;
   font-size: 20px;
-  font-family: "Pretendar-Medium";
+  font-weight: 500;
 }
 .loginButton {
   margin-top: 60px;
@@ -50,6 +50,8 @@
 }
 
 .logo {
+  max-height: 1000px;
+  max-width: 1000px;
   height: 100%;
   width: 100%;
 }
