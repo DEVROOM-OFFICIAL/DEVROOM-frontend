@@ -17,7 +17,11 @@ const GridComponent = ({ filteredData }: IPodTable) => {
           </div>
           <div>
             <strong>Type:</strong>{" "}
-            {pod.labels.connection === "vscode" ? "VSCode" : "SSH"}
+            { pod.labels.connection === "vscode" 
+            ? "VSCode" 
+            : pod.labels.connection === "web_ssh" 
+            ? "WebSHH" 
+            : "SSH"}
           </div>
           <div>
             <strong>Timestamp:</strong>{" "}

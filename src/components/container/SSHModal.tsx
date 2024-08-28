@@ -13,17 +13,19 @@ const Modal = ({ isOpen, onClose, content }: ModalProps) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
+        <button className={styles.button} onClick={onClose}>
+          X
+        </button>
         <div className={styles.header}>
-          아래 SSH 명령어를 <br /> 순차적으로 입력하세요
+          아래 명령어를 터미널에 입력하세요
         </div>
+        
         <div className={styles.content}>
           {content.map((cmd, index) => (
             <p key={index}>{cmd}</p>
           ))}
         </div>
-        <button className={styles.button} onClick={onClose}>
-          Close
-        </button>
+        
       </div>
     </div>
   );

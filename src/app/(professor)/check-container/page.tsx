@@ -59,7 +59,7 @@ const CheckPage = () => {
             <option value="">전체</option>
             {classIds.map((classId: string, index: number) => (
               <option key={index} value={classId}>
-                {classId}
+                {classId.startsWith("id-") ? classId.substring(3) : classId}
               </option>
             ))}
           </select>

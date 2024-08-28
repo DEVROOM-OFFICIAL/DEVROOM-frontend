@@ -115,7 +115,7 @@ export default function Layout({ children }: LayoutProps) {
               </div>
             </Link>
           </div>
-          <Link href="/notice/all">
+          {/* <Link href="/notice/all">
             <div
               className={`${styles.menuItem} ${
                 isActive("/notice/all") || isActive("/notice/specific")
@@ -140,7 +140,7 @@ export default function Layout({ children }: LayoutProps) {
               />
               <div>메세지</div>
             </div>
-          </Link>
+          </Link> */}
           <Link href="/help">
             <div className={`${styles.menuItem} ${isActive("/help")}`}>
               <Image src="/icons/Help.svg" alt="help" width={25} height={25} />

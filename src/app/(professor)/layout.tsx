@@ -115,7 +115,7 @@ export default function Layout({ children }: LayoutProps) {
               <div>조회</div>
             </div>
           </Link>
-          <div className={styles.menuItem}>
+          {/* <div className={styles.menuItem}>
             <Image
               src="/icons/Notice.svg"
               alt="notice"
@@ -132,7 +132,7 @@ export default function Layout({ children }: LayoutProps) {
               height={35}
             />
             <div className={styles.menuText}>메세지</div>
-          </div>
+          </div> */}
           <Link href="/professor-page">
             <div
               className={`${styles.menuItem} ${isActive("/professor-page")}`}

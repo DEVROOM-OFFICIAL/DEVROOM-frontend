@@ -15,10 +15,17 @@ const CreateContainerPage = () => {
 
   const { mutate: createClass, status } = useCreateClass();
 
+
   const containerData: ClassCreationSchema = {
     className: classId,
     studentIds,
-    options: type === "vscode" ? { vscode: "yes" } : { ssh: "yes" },
+    options
+    : type === "vscode" 
+    ? { vscode: "yes" } 
+    : type === "web_ssh" 
+    ? { web_ssh: "yes" } 
+    : { ssh: "yes" }
+    ,
     command: [],
     customScript: scripts,
   };
@@ -76,7 +83,7 @@ const CreateContainerPage = () => {
                 type="text"
                 id="classId"
                 value={classId}
-                placeholder="ex) id-java2024"
+                placeholder="ex) java2024"
                 onChange={(e) => setClassId(e.target.value)}
                 required
               />
@@ -121,7 +128,8 @@ const CreateContainerPage = () => {
                 required
               >
                 <option value="vscode">VSCode</option>
-                <option value="ssh">SSH</option>
+                <option value="ssh">SSH (Terminal)</option>
+                <option value="web_ssh">SSH (Web)</option>
               </select>
             </div>
 
