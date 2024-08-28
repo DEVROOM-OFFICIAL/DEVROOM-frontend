@@ -1,5 +1,0 @@
-myNextApplication:
-  component: '@sls-next/serverless-component@MY_VERSION'
-  inputs:
-    bucketRegion: 'ap-northeast-2'
-    bucketName: 's3://devroombucket/frontend'

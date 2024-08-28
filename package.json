@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "deploy": "s3-preprocessing && next build && next export"
+    "lint": "next lint"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.48.0",
