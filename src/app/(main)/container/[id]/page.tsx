@@ -17,7 +17,7 @@ export default function Home() {
   const [filterOption, setFilterOption] = useState("");
 
   const titles = {
-    recent: "최근 실행 컨테이너",
+    // recent: "최근 실행 컨테이너",
     semester: "이번 학기 컨테이너",
     all: "전체 학기 컨테이너",
   };

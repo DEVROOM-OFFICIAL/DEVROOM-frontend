@@ -4,11 +4,18 @@ import styles from "./page.module.css";
 import ProfilePic from "/public/icons/MyProfile.svg";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/userStore";
+import { useFetchCheck } from "@/api/hooks/useProfessor";
+import { type ServiceSchema } from "@/type/schemas";
 
 const MyPage = () => {
   const { name, role, studentId, email, logout } = useUserStore(
     (state) => state
   );
+
+  const { data: containerCheckData, isLoading, error } = useFetchCheck();
+  let numberOfElements = 0;
+  if (containerCheckData) containerCheckData.map(() => (numberOfElements++));
+
   const router = useRouter();
 
   const handleLogout = () => {
@@ -57,12 +64,12 @@ const MyPage = () => {
         <h2 className={styles.sectionTitle}>컨테이너 정보</h2>
         <div className={styles.statsItem}>
           <span className={styles.statsLabel}>운영중인 컨테이너 개수:</span>
-          <span className={styles.statsValue}>5개</span>
+          <span className={styles.statsValue}>{numberOfElements}</span>
         </div>
-        <div className={styles.statsItem}>
+        {/* <div className={styles.statsItem}>
           <span className={styles.statsLabel}>사용된 컨테이너 개수:</span>
           <span className={styles.statsValue}>67개</span>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.linkSection}>

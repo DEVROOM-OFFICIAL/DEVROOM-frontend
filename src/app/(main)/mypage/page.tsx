@@ -4,12 +4,18 @@ import { useUserStore } from "@/store/userStore";
 import styles from "./page.module.css";
 import ProfilePic from "/public/icons/MyProfile.svg";
 import { useRouter } from "next/navigation";
+import { useFetchService } from "@/api/hooks/useStudent";
+import { type ServiceSchema } from "@/type/schemas";
 
 const MyPage = () => {
   const router = useRouter();
   const { name, role, studentId, email, logout } = useUserStore(
     (state) => state
   );
+  
+  const { data: serviceData, isLoading, error } = useFetchService();
+  let numberOfElements = 0;
+  if (serviceData) serviceData.map(() => (numberOfElements++));
 
   const handleLogout = () => {
     logout();
@@ -54,15 +60,15 @@ const MyPage = () => {
       </div>
 
       <div className={styles.statisticsSection}>
-        <h2 className={styles.sectionTitle}>컨테이너 사용시간 통계</h2>
+        <h2 className={styles.sectionTitle}>컨테이너 정보</h2>
         <div className={styles.statsItem}>
-          <span className={styles.statsLabel}>총 사용시간:</span>
-          <span className={styles.statsValue}>50시간</span>
+          <span className={styles.statsLabel}>총 컨테이너 수:</span>
+          <span className={styles.statsValue}>{numberOfElements}</span>
         </div>
-        <div className={styles.statsItem}>
+        {/* <div className={styles.statsItem}>
           <span className={styles.statsLabel}>이번 학기 사용시간:</span>
           <span className={styles.statsValue}>20시간</span>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.linkSection}>
