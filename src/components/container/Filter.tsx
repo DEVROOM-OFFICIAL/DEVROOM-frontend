@@ -53,7 +53,7 @@ export default function Filter({ onSelect }: FilterProps) {
         className={`${styles.filterOptions} ${isFilterOpen ? styles.open : ""}`}
       >
         <div onClick={() => handleSelect("전체 학기")}>전체 학기</div>
-        <div onClick={() => handleSelect("최근 실행")}>최근 실행</div>
+        {/* <div onClick={() => handleSelect("최근 실행")}>최근 실행</div> */}
         <div onClick={() => handleSelect("이번 학기")}>이번 학기</div>
       </div>
     </div>

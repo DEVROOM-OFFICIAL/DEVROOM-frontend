@@ -96,7 +96,7 @@ export default function Layout({ children }: LayoutProps) {
                 <div>전체 학기 컨테이너</div>
               </div>
             </Link>
-            <Link href="/container/recent">
+            {/* <Link href="/container/recent">
               <div
                 className={`${styles.menuItem} ${isActive(
                   "/container/recent"
@@ -104,7 +104,7 @@ export default function Layout({ children }: LayoutProps) {
               >
                 <div>최근 실행 컨테이너</div>
               </div>
-            </Link>
+            </Link> */}
             <Link href="/container/semester">
               <div
                 className={`${styles.menuItem} ${isActive(
